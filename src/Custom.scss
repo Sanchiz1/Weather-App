@@ -1,0 +1,39 @@
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+$theme-colors: (
+    "customblue": #28688C,
+    "customlightblue": #2E7FA1
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.bg-customblue{
+    background-color: #28688C
+};
+
+.bg-customlightblue{
+    background-color: #2E7FA1
+};
+
+.text-customblue{
+    color: #28688C
+};
+
+.text-customlightblue{
+    color: #2E7FA1
+};
+span.disabled{
+    pointer-events: none;
+    cursor: default;
+}
+
+.customshadow {
+    box-shadow: 0 0.250rem 0.25rem rgba(0, 0, 0, 0.3) !important
+}
+
+@media screen and (max-width: 768px) {
+    .Row{
+        flex-direction: column;
+    }
+}
