@@ -61,7 +61,7 @@ function GetDays(response: Response) {
     return days
 }
 
-const toDateTime = (secs: number) => {
+export const toDateTime = (secs: number) => {
     var t = new Date(1970, 0, 1);
     t.setSeconds(secs);
     return t;
