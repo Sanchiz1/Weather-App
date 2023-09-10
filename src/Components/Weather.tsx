@@ -40,6 +40,11 @@ function Weather() {
     const city: City = useSelector((state: RootState) => { return state.weather.City })
     const weather: Days = useSelector((state: RootState) => { return state.weather.Days })
 
+    useEffect(() => {
+        setDay(0);
+        setHour(0);
+    },[city])
+
     return (
         <Container>
             {city && weather?.days ? <>
@@ -48,8 +53,8 @@ function Weather() {
                         <Row className='Row'>
                             <Col className='mb-3'>
                                 <h3 className='m-0 mb-2'>{city.name}, {city.country}</h3>
-                                <h3 className='m-0'>{getDateSting(toDateTime(weather.days[0].day[0]?.dt + city.timezone + new Date().getTimezoneOffset() * 60))}</h3>
-                                <h3 className='m-0'>{getTimeSting(toDateTime(weather.days[0].day[0]?.dt + city.timezone + new Date().getTimezoneOffset() * 60))}</h3>
+                                <h3 className='m-0'>{getDateSting(toDateTime(weather.days[0].day[hour]?.dt + city.timezone + new Date().getTimezoneOffset() * 60))}</h3>
+                                <h3 className='m-0'>{getTimeSting(toDateTime(weather.days[0].day[hour]?.dt + city.timezone + new Date().getTimezoneOffset() * 60))}</h3>
                             </Col>
                             <Col className='mb-3'>
                                 <Row>
@@ -70,14 +75,14 @@ function Weather() {
                         </Row>
                         <Row className='mt-3'>
                             {weather.days[0]?.day.map((e, index) =>
-                                <Card key={index} className={(index === hour) ? 'text-white bg-customblue rounded-0 w-12 p-0' : 'text-white bg-customlightblue rounded-0 w-12 p-0'}
+                                <Card key={index} className={(index === hour) ? 'text-white bg-customblue rounded-0 w-25 p-0' : 'text-white bg-customlightblue rounded-0 w-25 p-0 customhover'}
                                     onClick={() => setHour(index)}>
                                     <Card.Body className='p-1'>
-                                        <p className='m-0 text-center rem'>{Math.round(e.main.temp)}{'\u00b0'}</p>
+                                        <p className='m-0 text-center'>{Math.round(e.main.temp)}{'\u00b0'}</p>
                                         <div className='d-flex justify-content-center'>
-                                            <p className='m-0 w-50 text-center rem'><WeatherIcon id={e.weather[0].icon}></WeatherIcon></p>
+                                            <p className='m-0 w-25 text-center'><WeatherIcon id={e.weather[0].icon}></WeatherIcon></p>
                                         </div>
-                                        <p className='m-0 text-center rem'>{getTimeSting(toDateTime(e.dt + city.timezone + new Date().getTimezoneOffset() * 60))}</p>
+                                        <p className='m-0 text-center'>{getTimeSting(toDateTime(e.dt + city.timezone + new Date().getTimezoneOffset() * 60))}</p>
                                     </Card.Body>
                                 </Card>
                             )}
