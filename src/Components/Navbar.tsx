@@ -8,7 +8,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWeatherByCity } from '../Api/epics';
 import { RootState } from '../Api/store';
-import { RequestLocation, getCookie } from '../Api/Requests';
+import { RequestLocation, getCookie, setCookie } from '../Api/Requests';
 
 function AppNavbar() {
   const dispatch = useDispatch()
@@ -16,10 +16,18 @@ function AppNavbar() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    if(getCookie("City") === null) {
-      RequestLocation()
+    if (getCookie("City") !== null) {
+      dispatch(getWeatherByCity(getCookie("City")!));
     }
-    dispatch(getWeatherByCity(getCookie("City")!));
+    else {
+      RequestLocation().subscribe({
+        next(x) {
+          setCookie({ name: "City", value: x, expires_second: 365 * 24 * 60 * 60, path: "/" });
+          dispatch(getWeatherByCity(x));
+        }
+      })
+    }
+
   }, [])
   const searchCity = () => {
     if (search === '') return;
