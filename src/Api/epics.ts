@@ -2,7 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { Epic, ofType } from "redux-observable";
 import { Observable, catchError, map, mergeMap } from "rxjs";
 import { RequestWeather } from "./Requests";
-import { getWeather, setErrorMessage } from "./WeatherSlice";
+import { setWeather } from "./WeatherSlice";
 import { Response } from "../Types/Response";
 
 
@@ -12,7 +12,7 @@ export const getWeatherByCityEpic: Epic = (action$: Observable<PayloadAction<str
     map(action => action.payload),
     mergeMap((city) => RequestWeather(city).pipe(
         map((res: Response) =>
-            getWeather(res)
+            setWeather(res)
         )
     ))
 )
