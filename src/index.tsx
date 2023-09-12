@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import './Custom.css'
 import store from './Api/store';
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
