@@ -1,3 +1,7 @@
+Simple React TypeScript weahter app using openWeatherApp API
+
+hosting: https://yourweatherapp.vercel.app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
