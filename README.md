@@ -1,4 +1,4 @@
-Simple React TypeScript weahter app using openWeatherApp API
+Simple React TypeScript weahter app using openWeatherApp API with Redux and Rxjs
 
 hosting: https://yourweatherapp.vercel.app/
 
