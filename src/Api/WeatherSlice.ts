@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { City, Day, Days, Response } from "../Types/Response";
+import { toast } from "react-hot-toast";
 
 export interface weatherState {
     City: City,
@@ -17,13 +18,12 @@ export const weatherSlice = createSlice({
     reducers: {
         setWeather: (state,
             action: PayloadAction<Response>) => {
-            if(action.payload.cod === "404"){
-                state.error = "City not found"
-            }
-            else{
-                state.City = action.payload.city;
-                state.Days = GetDays(action.payload);
-            }
+            state.City = action.payload.city;
+            state.Days = GetDays(action.payload);
+        },
+        setErrorMessage: (state, action: PayloadAction<String>) => {
+            sendErrorToast(action.payload.toString())
+            state.error = action.payload
         },
         clearErrorMessage: (state) => {
             state.error = ""
@@ -32,7 +32,7 @@ export const weatherSlice = createSlice({
 });
 
 function GetDays(response: Response) {
-    let days: Days = { days: [{day: []}] };
+    let days: Days = { days: [{ day: [] }] };
     let index: number = 0;
 
     const now = new Date()
@@ -63,8 +63,26 @@ export const toDateTime = (secs: number) => {
     return t;
 }
 
+function sendErrorToast(error: string) {
+    let style = {
+        background: '#333',
+        color: '#fff',
+    }
+    if (document.body.dataset.bsTheme == "light") {
+        style.background = '#fff';
+        style.color = '#333';
+    }
+    toast.error(error,
+        {
+            duration: 1000,
+            style: style
+        })
+}
+
+
 export const {
     setWeather,
+    setErrorMessage,
     clearErrorMessage
 } = weatherSlice.actions;
 export default weatherSlice.reducer;

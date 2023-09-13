@@ -24,8 +24,6 @@ function AppNavbar() {
   const [search, setSearch] = useState('');
   const [theme, setTheme] = useState(document.body.dataset.bsTheme);
 
-  const error: String | undefined = useSelector((state: RootState) => { return state.weather.error })
-
 
   useEffect(() => {
     if (getCookie("City") !== null) {
@@ -44,14 +42,6 @@ function AppNavbar() {
   const searchCity = () => {
     if (search === '') return;
     dispatch(getWeatherByCity(search));
-    if (error) toast.error(error.toString(),
-      {
-        duration: 1000,
-        style: {
-          background: '#333',
-          color: '#fff',
-        },
-      })
   }
 
   const city = useSelector((state: RootState) => { return state.weather.City })
